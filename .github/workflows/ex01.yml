@@ -1,0 +1,13 @@
+name: exercise 1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  author_info:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out this repo
+      uses: actions/checkout@v4
+
