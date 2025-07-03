@@ -1,0 +1,6 @@
+name: run pytest
+
+on:
+  - push 
+  pull_request
+  
