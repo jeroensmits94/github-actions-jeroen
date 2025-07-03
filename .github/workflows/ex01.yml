@@ -2,6 +2,8 @@ name: exercise 1
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *' # every day at 08:00 UTC
 
 jobs:
   author_info:
@@ -10,4 +12,11 @@ jobs:
     steps:
     - name: Check out this repo
       uses: actions/checkout@v4
+    - name: Fetch author name from secrets
+      env:
+        AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+      run: |-
+        AUTHOR="${AUTHOR_NAME}"
+        AUTHOR_ENCODED=$(echo "$AUTHOR" | sed 's/ /+/g')
+        curl -s "https://openlibrary.org/search/authors.json?q=${AUTHOR_ENCODED}" > "ex01/$(date +%F)-${AUTHOR}.json"
 
